@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crystal Alpine Palace – Saint Moritz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-crest">❖</span>
+        <span class="logo-text">Crystal Alpine Palace</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#booking">Rooms</a></li>
+        <li><a href="#booking" class="nav-cta">Book Now</a></li>
+      </ul>
+    </nav>
+    <div class="hero-content">
+      <p class="hero-sub">Saint Moritz · Swiss Alps</p>
+      <h1 class="hero-title">Crystal Alpine<br /><em>Palace</em></h1>
+      <p class="hero-desc">An unparalleled retreat where timeless elegance meets the majesty of the Alps.</p>
+      <a href="#booking" class="btn-primary">Reserve Your Suite</a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <span class="section-label">Our Story</span>
+        <h2>Six floors of Alpine<br /><em>grandeur</em></h2>
+        <p>Perched above the shimmering Lake Saint Moritz, the Crystal Alpine Palace rises six stories through alpine meadows and eternal snow. Each of our 120 meticulously appointed rooms frames a private panorama of the Engadin Valley — a living canvas that changes with every season.</p>
+        <p>From intimate suites to spacious family sanctuaries, every accommodation is crafted with the finest Swiss craftsmanship, ensuring your stay is nothing short of extraordinary.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-num">120</span>
+          <span class="stat-label">Luxury Rooms</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">6</span>
+          <span class="stat-label">Exclusive Floors</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">5★</span>
+          <span class="stat-label">Rating</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">2026</span>
+          <span class="stat-label">Est.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BOOKING ===================== -->
+  <section class="booking" id="booking">
+    <div class="booking-inner">
+      <span class="section-label light">Reservations</span>
+      <h2 class="booking-title">Select Your<br /><em>Perfect Room</em></h2>
+
+      <!-- STEP 1 — Floor selector -->
+      <div class="step-block" id="step-floor">
+        <div class="step-header">
+          <span class="step-badge">1</span>
+          <h3>Choose Your Floor</h3>
+        </div>
+        <div class="floor-grid" id="floorGrid">
+          <!-- Floors rendered by JS top (6) → bottom (1) -->
+        </div>
+      </div>
+
+      <!-- STEP 2 — Room picker -->
+      <div class="step-block hidden" id="step-room">
+        <div class="step-header">
+          <span class="step-badge">2</span>
+          <h3>Pick Your Room <span id="floorLabel"></span></h3>
+        </div>
+        <p class="step-hint" id="roomHint"></p>
+        <div class="room-grid" id="roomGrid">
+          <!-- 20 rooms rendered by JS -->
+        </div>
+        <button class="btn-ghost" id="backToFloor">← Change Floor</button>
+      </div>
+
+      <!-- STEP 3 — Booking details -->
+      <div class="step-block hidden" id="step-details">
+        <div class="step-header">
+          <span class="step-badge">3</span>
+          <h3>Your Booking Details</h3>
+        </div>
+
+        <div class="details-layout">
+          <!-- Selected room summary -->
+          <div class="room-summary" id="roomSummary"></div>
+
+          <!-- Form -->
+          <form class="booking-form" id="bookingForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="guestName">Full Name</label>
+                <input type="text" id="guestName" placeholder="e.g. Johann Müller" required />
+              </div>
+              <div class="form-group">
+                <label for="guestEmail">Email Address</label>
+                <input type="email" id="guestEmail" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="checkIn">Check-In Date</label>
+                <input type="date" id="checkIn" required />
+              </div>
+              <div class="form-group">
+                <label for="nights">Number of Nights</label>
+                <input type="number" id="nights" min="1" max="365" value="1" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="guests">Number of Guests</label>
+              <select id="guests" required>
+                <!-- Options populated by JS based on room capacity -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="requests">Special Requests <span class="optional">(optional)</span></label>
+              <textarea id="requests" rows="3" placeholder="e.g. champagne on arrival, late check-out…"></textarea>
+            </div>
+
+            <!-- Price summary -->
+            <div class="price-summary" id="priceSummary">
+              <div class="price-row">
+                <span>Room rate</span>
+                <span id="pricePerNight">–</span>
+              </div>
+              <div class="price-row">
+                <span>Nights</span>
+                <span id="priceNights">–</span>
+              </div>
+              <div class="price-row price-total">
+                <span>Total</span>
+                <span id="priceTotal">–</span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-ghost" id="backToRoom">← Change Room</button>
+              <button type="submit" class="btn-primary" id="submitBtn">Confirm Reservation</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AMENITIES ===================== -->
+  <section class="amenities">
+    <div class="amenities-inner">
+      <span class="section-label">Included with every stay</span>
+      <h2>The Palace <em>Experience</em></h2>
+      <div class="amenities-grid">
+        <div class="amenity-card">
+          <div class="amenity-icon">🍽️</div>
+          <h4>Fine Dining</h4>
+          <p>Three Michelin-starred restaurant with panoramic alpine views.</p>
+        </div>
+        <div class="amenity-card">
+          <div class="amenity-icon">💆</div>
+          <h4>Alpine Spa</h4>
+          <p>1 200 m² wellness sanctuary with thermal pools and Swiss treatments.</p>
+        </div>
+        <div class="amenity-card">
+          <div class="amenity-icon">⛷️</div>
+          <h4>Ski Concierge</h4>
+          <p>Private ski school, equipment rental, and slope transfers.</p>
+        </div>
+        <div class="amenity-card">
+          <div class="amenity-icon">🚁</div>
+          <h4>Helicopter Transfers</h4>
+          <p>Exclusive helicopter service from Zurich or Geneva airports.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-crest">❖</span>
+        <span class="logo-text">Crystal Alpine Palace</span>
+        <p>Via Serlas 27 · 7500 Saint Moritz · Switzerland</p>
+        <p>+41 81 836 00 00 · reservations@crystallalpinepalace.ch</p>
+      </div>
+      <div class="footer-links">
+        <h5>Explore</h5>
+        <a href="#">Rooms &amp; Suites</a>
+        <a href="#">Dining</a>
+        <a href="#">Spa &amp; Wellness</a>
+        <a href="#">Events</a>
+      </div>
+      <div class="footer-links">
+        <h5>Information</h5>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Crystal Alpine Palace. All rights reserved. Member of The Leading Hotels of the World.</p>
+    </div>
+  </footer>
+
+  <!-- ===================== CONFIRMATION MODAL ===================== -->
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal" id="confirmModal">
+      <div class="modal-crest">❖</div>
+      <h2>Reservation Confirmed</h2>
+      <p class="modal-intro">Thank you for choosing the Crystal Alpine Palace. We look forward to welcoming you.</p>
+      <div class="modal-details" id="modalDetails"></div>
+      <button class="btn-primary" id="modalClose">Return to Homepage</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
